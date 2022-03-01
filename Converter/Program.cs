@@ -8,50 +8,40 @@ namespace Converter
 {
 	class MainClass
 	{
+		const string menuString = "\n\t[1] - Обновить курс\n\t[2] - Конвертировать\nДействие: ";
+
 		public static void Main (string[] args)
 		{
-			Task<string> t = RequestAsync ();
+			//Task<string> t = RequestAsync ();
 			
-			string result = t.Result;
+			//string result = t.Result;
 			//Console.WriteLine (result);
 
 			//FileManager manager = new FileManager ("test.txt");
 			//manager.WriteFile (result);
 
-			JObject json = JObject.Parse (result);
-			Console.WriteLine (json ["Valute"]["AUD"]["ID"].ToString());
-		}
+			//JObject json = JObject.Parse (result);
+			//Console.WriteLine (json ["Valute"]["AUD"]["ID"].ToString());
 
 
 
-		private static async Task<string> RequestAsync()
-		{
-			string responseString = "";
-			// Адрес ресурса
-			string url = "https://www.cbr-xml-daily.ru/daily_json.js";
+			Console.WriteLine ("\t\tКОНВЕРТЕР ВАЛЮТ" + menuString);
+			string action = Console.Read ();
 
-			// Создание запроса к сайту
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create (url);
-
-			// Избавляемся от ошибки недоверия
-			request.ServerCertificateValidationCallback = delegate {
-				return true;
-			};
-
-			// Получение ответа
-			HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync ();
-
-			// Чтение ответа
-			using (Stream stream = response.GetResponseStream ()) 
+			switch (action) 
 			{
-				using (StreamReader reader = new StreamReader (stream)) 
-				{
-					responseString = reader.ReadToEnd ();
-				}
-			}
+			case "1":
+				RateManager.UpdateRate ();
+				break;
 
-			response.Close ();
-			return responseString;
+			case "2":
+				//ConvertInfo info = UserInput.GetInput ();
+				break;
+
+			default:
+				Console.WriteLine ("Bye ;)");
+				break;
+			}
 		}
 	}
 }
