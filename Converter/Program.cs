@@ -35,7 +35,7 @@ namespace Converter
 				break;
 
 			case "2":
-				//ConvertInfo info = UserInput.GetInput ();
+				ConvertInfo info = UserInput.GetInput ();
 				break;
 
 			default:
