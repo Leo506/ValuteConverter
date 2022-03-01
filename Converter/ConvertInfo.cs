@@ -29,6 +29,7 @@ namespace Converter
 		}
 
 		public float amount { get; set; }
+
 	}
 }
 

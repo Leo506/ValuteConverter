@@ -10,18 +10,17 @@ namespace Converter
 		/// <returns>Возвращает введённые пользователем значения</returns>
 		public static ConvertInfo GetInput()
 		{
-			ConvertInfo info;
 
 			Console.WriteLine ("Введите начальную валюту: ");
-			info.StartValute = Console.ReadLine ();
+			string start = Console.ReadLine ();
 
 			Console.WriteLine ("Введите конечную валюту: ");
-			info.EndValute = Console.ReadLine ();
+			string end = Console.ReadLine ();
 
 			Console.WriteLine ("Введите кол-во денег: ");
-			info.amount = (int)Console.ReadLine ();
+			int amount = int.Parse(Console.ReadLine ());
 
-			return info;
+			return new ConvertInfo() { StartValute = start, EndValute =  end, amount = amount };
 		}
 	}
 }

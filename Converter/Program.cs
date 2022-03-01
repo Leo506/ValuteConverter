@@ -26,21 +26,28 @@ namespace Converter
 
 
 			Console.WriteLine ("\t\tКОНВЕРТЕР ВАЛЮТ" + menuString);
-			string action = Console.Read ();
+			string action = Console.ReadLine ();
 
-			switch (action) 
+			try
 			{
-			case "1":
-				RateManager.UpdateRate ();
-				break;
+				switch (action) 
+				{
+				case "1":
+					RateManager.UpdateRate ();
+					break;
 
-			case "2":
-				ConvertInfo info = UserInput.GetInput ();
-				break;
+				case "2":
+					ConvertInfo info = UserInput.GetInput ();
+					break;
 
-			default:
-				Console.WriteLine ("Bye ;)");
-				break;
+				default:
+					Console.WriteLine ("Bye ;)");
+					break;
+				}
+			}
+			catch (Exception ex) 
+			{
+				Console.WriteLine (ex.Message);
 			}
 		}
 	}
