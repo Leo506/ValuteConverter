@@ -23,14 +23,24 @@ namespace Converter
 		/// <param name="str">Строка</param>
 		public void WriteFile(string str)
 		{
-			FileStream fs = new FileStream (fileName, FileMode.Create, FileAccess.Write);
-			using (StreamWriter writer = new StreamWriter(fs))
+			FileStream fs;
+			try
 			{
-				writer.WriteLine (str);
+				fs = new FileStream (fileName, FileMode.Create, FileAccess.Write);
+				using (StreamWriter writer = new StreamWriter(fs))
+				{
+					writer.WriteLine (str);
+				}
 			}
-
-			fs.Close ();
-			fs.Dispose ();
+			finally 
+			{
+				if (fs != null) 
+				{
+					fs.Close ();
+					fs.Dispose ();
+					fs = null;
+				}
+			}
 		}
 	}
 }
