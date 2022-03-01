@@ -45,6 +45,7 @@
     <Compile Include="RateManager.cs" />
     <Compile Include="ConvertInfo.cs" />
     <Compile Include="UserInput.cs" />
+    <Compile Include="ConvertManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Converter
 		/// <param name="str">Строка</param>
 		public void WriteFile(string str)
 		{
-			FileStream fs;
+			FileStream fs = null;
 			try
 			{
 				fs = new FileStream (fileName, FileMode.Create, FileAccess.Write);
@@ -41,6 +41,37 @@ namespace Converter
 					fs = null;
 				}
 			}
+		}
+
+
+		/// <summary>
+		/// Читает содержимое файла с курсом валют
+		/// </summary>
+		/// <returns>Строка - содержимое файла</returns>
+		public string ReadFile()
+		{
+			FileStream fs = null;
+			string result = "";
+			try
+			{
+				fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+				using (StreamReader reader = new StreamReader(fs))
+				{
+					result = reader.ReadToEnd();
+				}
+			}
+
+			finally 
+			{
+				if (fs != null) 
+				{
+					fs.Close ();
+					fs.Dispose ();
+					fs = null;
+				}
+			}
+
+			return result;
 		}
 	}
 }

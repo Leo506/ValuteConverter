@@ -38,6 +38,8 @@ namespace Converter
 
 				case "2":
 					ConvertInfo info = UserInput.GetInput ();
+					float result = ConvertManager.Convert(info);
+					Console.WriteLine(result);
 					break;
 
 				default:

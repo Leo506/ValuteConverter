@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Converter
 {
@@ -22,6 +23,33 @@ namespace Converter
 
 			FileManager manager = new FileManager (rateFile);
 			manager.WriteFile (result);
+		}
+
+
+		/// <summary>
+		/// Пробует получить курс определенной валюты
+		/// </summary>
+		/// <returns><c>true</c>, Если получилось взять курс, <c>false</c> иначе.</returns>
+		/// <param name="valute">Валюта, курс которой ищется</param>
+		/// <param name="rate">Куда записать курс</param>
+		public static bool TryGetRate(string valute, out float rate)
+		{
+			FileManager manager = new FileManager (rateFile);
+			string json = manager.ReadFile ();
+
+			JObject jsonObj = JObject.Parse (json);
+
+			try
+			{
+				rate = float.Parse(jsonObj["Valute"][valute]["Value"].ToString());
+				return true;
+			}
+
+			catch 
+			{
+				rate = -1;
+				return false;
+			}
 		}
 
 
