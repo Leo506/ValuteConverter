@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Converter
 {
@@ -9,14 +10,23 @@ namespace Converter
 	{
 		public static void Main (string[] args)
 		{
-			Task t = Task.Run (RequestAsync);
-			t.Wait ();
+			Task<string> t = RequestAsync ();
+			
+			string result = t.Result;
+			//Console.WriteLine (result);
+
+			//FileManager manager = new FileManager ("test.txt");
+			//manager.WriteFile (result);
+
+			JObject json = JObject.Parse (result);
+			Console.WriteLine (json ["Valute"]["AUD"]["ID"].ToString());
 		}
 
 
 
-		private static async Task RequestAsync()
+		private static async Task<string> RequestAsync()
 		{
+			string responseString = "";
 			// Адрес ресурса
 			string url = "https://www.cbr-xml-daily.ru/daily_json.js";
 
@@ -36,15 +46,12 @@ namespace Converter
 			{
 				using (StreamReader reader = new StreamReader (stream)) 
 				{
-					string line = "";
-					while ((line = reader.ReadLine()) != null) 
-					{
-						Console.WriteLine (line);	
-					}
+					responseString = reader.ReadToEnd ();
 				}
 			}
 
 			response.Close ();
+			return responseString;
 		}
 	}
 }
